@@ -84,18 +84,14 @@ router.post('/user/register', function (req, res, next) {
         }
         //查询到userInfo 为 null时,储存数据到数据库
         var user = new User({
-            username: username,
+            username: username ,
             password: password
         })
         return user.save();
-    }).then(function (userInfo) {
+    }).then(function () {
         responseData.message="注册成功";
         res.json(responseData)
         //注册成功后是否将注册信息储存到cookie
-        // req.cookies.set('userInfo', JSON.stringify({
-        //     userId: userInfo._id,
-        //     userName: userInfo.username
-        // }))
     })
 });
 /*

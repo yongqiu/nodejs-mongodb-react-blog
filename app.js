@@ -44,9 +44,8 @@ app.set('views','./views');
 swig.setDefaults({cache: false});
 
 //bodyParser 相关参数设置
-app.use(bodyParser.urlencoded({
-    extended:true
-}))
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 //设置Cookies
 app.use(function (req, res, next) {
@@ -61,10 +60,10 @@ app.use(function (req, res, next) {
 })
 
 /*
-* 配置路由
+* 配置请求路由
 */
-app.use('/api', require('./routers/api'));  //api 路由
-app.use('/admin', require('./routers/admin')); //后台管理页面路由
+app.use('/api', require('./routers/api'));  //前端页面的api 路由
+app.use('/admin', require('./routers/admin')); // admin的api路由
 app.use('/', require('./routers/main'));    //前端展示页面路由
 
 //连接数据库
