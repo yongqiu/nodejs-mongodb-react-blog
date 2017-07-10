@@ -6,6 +6,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User')
 
+//用户分类列表
 router.post('/api/getUserList', function (req, res, next) {
     /*
      * 从数据库中读取所有数据
@@ -21,9 +22,9 @@ router.post('/api/getUserList', function (req, res, next) {
      * ...
      * 所以变量skip = (currentPage-1)*limit
      * */
-    var page = req.body.page
+    var currentPage = req.body.page
     var limit = req.body.limit
-    var skip = (page - 1)*limit
+    var skip = (currentPage - 1)*limit
     User.find().then(function (userlist) {
         //获取user表里所有的数据，储存总条数
         var totalCount = userlist.length
@@ -38,6 +39,68 @@ router.post('/api/getUserList', function (req, res, next) {
         })
     })
 
+})
+/*
+* 用户信息修改
+* */
+router.post('/api/editUserInfo', function (req, res, next) {
+    console.log(req.body._id)
+    var name = req.body.username
+    var isAdmin = req.body.isAdmin
+    var _id = req.body._id
+
+    User.findOne({
+        _id:_id
+    }).then(function (userInfo) {
+        if (name == userInfo.username){
+            var responseData = {
+                code: 200,
+                message: '修改成功'
+            }
+            res.json(responseData)
+            return;
+        }
+        return User.findOne({
+            username: name
+        })
+    }).then(function (sameUsernma) {
+        if (sameUsernma){
+            var responseData = {
+                code: 400,
+                message: '用户名已存在'
+            }
+            res.json(responseData)
+        }else {
+            return User.update({
+                _id: _id
+            },{
+                username: name,
+                isAdmin: isAdmin
+            })
+        }
+    }).then(function () {
+        var responseData = {
+            code: 200,
+            message: '修改成功'
+        }
+        res.json(responseData)
+    })
+})
+
+/*
+* 用户信息删除
+* */
+router.post('/api/deleteUserInfo', function (req, res, next) {
+    var _id = req.body._id
+    User.remove({
+        _id: _id
+    }).then(function () {
+        var responseData = {
+            code: 200,
+            message: '删除'
+        }
+        res.json(responseData)
+    })
 })
 
 
