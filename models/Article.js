@@ -2,8 +2,8 @@
  * Created by Administrator on 2017/7/11.
  */
 var mongoose = require('mongoose');
-var userSchema  = require('../schemas/tags');
+var userSchema  = require('../schemas/article');
 
-var tagModel = mongoose.model('Tags', userSchema);
+var articleModel = mongoose.model('Article', userSchema);
 
-module.exports = tagModel;
+module.exports = articleModel;

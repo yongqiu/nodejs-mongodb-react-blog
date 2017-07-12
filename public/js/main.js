@@ -8,7 +8,8 @@ var $logout = $('.welcome').find('.logout')
 var $userInfo = $welcome.find('.userInfo span')
 var $adminTips = $('.admin')
 var $notAdmin = $('.notadmin')
-var $backInfo = $registerbox.find('.backInfo')
+var $regInfo = $registerbox.find('.backInfo')
+var $loginInfo = $loginbox.find('.backInfo')
 
 function checkCookies() {
     $.ajax({
@@ -77,10 +78,10 @@ $(function () {
             success:function (result) {
                 var message = result.message
                 if (result.code !== 0){
-                    $backInfo.empty().html(message)
+                    $regInfo.empty().html(message)
                     return
                 }else {
-                    $backInfo.empty().html(message)
+                    $regInfo.empty().html(message)
                     //登陆成功后显示login面板
                     setTimeout(function () {
                         $registerbox.addClass('hide');
@@ -104,9 +105,10 @@ $(function () {
             },
             dataType:'json',
             success:function (result) {
+                console.log(result)
                 var message = result.message
                 if (result.code !== 0){
-                    $backInfo.empty().html(message)
+                    $loginInfo.empty().html(message)
                     return
                 }else {
                     checkCookies();

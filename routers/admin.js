@@ -5,6 +5,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User')
+var Tags = require('../models/Tags')
+var Article = require('../models/Article')
 
 //用户分类列表
 router.post('/api/getUserList', function (req, res, next) {
@@ -44,7 +46,6 @@ router.post('/api/getUserList', function (req, res, next) {
 * 用户信息修改
 * */
 router.post('/api/editUserInfo', function (req, res, next) {
-    console.log(req.body._id)
     var name = req.body.username
     var isAdmin = req.body.isAdmin
     var _id = req.body._id
@@ -52,6 +53,7 @@ router.post('/api/editUserInfo', function (req, res, next) {
     User.findOne({
         _id:_id
     }).then(function (userInfo) {
+        //没有进行修改
         if (name == userInfo.username){
             var responseData = {
                 code: 200,
@@ -103,5 +105,51 @@ router.post('/api/deleteUserInfo', function (req, res, next) {
     })
 })
 
+/*
+* 添加标签
+* */
+router.post('/api/addArticleTags', function (req, res, next) {
+    var tags = req.body.tags
+    tags.forEach(function (value, index) {
+        Tags.findOne({
+            tagname: value
+        }).then(function (item) {
+            if (!item){
+                var tag = new Tags({
+                    tagname: value
+                })
+                return tag.save();
+            }
+        })
+    })
+})
+
+router.get('/api/getArticleTags', function (req, res, nex) {
+    var array = new Array();
+    Tags.find({},{"tagname":1,"_id":0}).then(function (item) {
+        item.forEach(function (value, index) {
+            array.push(value.tagname)
+        })
+        var responseData = {
+            tagArray: array,
+        }
+        res.json(responseData)
+    })
+})
+
+router.post('/api/addArticle', function (req, res, next) {
+    var title = req.body.title
+    var modifier = req.body.modifiers
+    var description = req.body.description
+    var tags = req.body.tags
+    var article = new Article({
+        title: title,
+        modifier: modifier,
+        description: description,
+        tags: tags
+    })
+    console.log(article)
+    article.save();
+})
 
 module.exports = router;
