@@ -5,6 +5,8 @@ var express = require('express');
 var router = express.Router();
 //引入models
 var User = require('../models/User')
+var Article = require('../models/Article')
+var Tags = require('../models/Tags')
 
 
 // 所有路径的api请求，都默认返回的参数
@@ -143,4 +145,45 @@ router.post('/user/login', function (req, res, next) {
         return;
     })
 })
+
+/*
+* 获取文章列表
+* */
+router.get('/user/getAllArticle', function (req, res, next) {
+    var currentPage = req.query.page;
+    var limit = 5;
+    var skip = (currentPage - 1)*limit;
+    Article.find().then(function (aLLAriticle) {
+
+        // //获取user表里所有的数据，储存总条数
+        var totalCount = aLLAriticle.length
+        // //再获取筛选后的数据
+        Article.find().limit(limit).skip(skip).then(function (articleList) {
+            var responseData = {
+                totalCount: totalCount,
+                data: articleList
+            }
+            // console.log(responseData)
+            // //返回筛选后的数据和总条数
+            res.json(responseData)
+        })
+    })
+})
+
+/*
+* 获取标签
+* */
+router.get('/user/getAllTags', function (req, res) {
+    var array = new Array();
+    Tags.find({},{"tagname":1,"_id":0}).then(function (item) {
+        item.forEach(function (value, index) {
+            array.push(value.tagname)
+        })
+        var responseData = {
+            tagArray: array,
+        }
+        res.json(responseData)
+    })
+})
+
 module.exports = router
