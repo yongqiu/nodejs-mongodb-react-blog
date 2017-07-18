@@ -9,7 +9,8 @@ var articleSchema = new Schema({
     title: String,
     modifier: String,
     description: String,
-    tags: Array
+    tags: Array,
+    data: String
 });
 
 module.exports = articleSchema;

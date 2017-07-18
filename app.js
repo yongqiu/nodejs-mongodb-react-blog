@@ -63,8 +63,9 @@ app.use(function (req, res, next) {
 * 配置请求路由
 */
 app.use('/api', require('./routers/api'));  //前端页面的api 路由
-app.use('/admin', require('./routers/admin')); // admin的api路由
+app.use('/admin/api', require('./routers/api_admin')); // admin的api路由
 app.use('/', require('./routers/main'));    //前端展示页面路由
+app.use('/admin', require('./routers/admin'));    //后端展示页面路由
 
 //连接数据库
 mongoose.connect('mongodb://localhost:27018/blog', function (err) {
