@@ -10,7 +10,7 @@ var articleSchema = new Schema({
     modifier: String,
     description: String,
     tags: Array,
-    data: String
+    date: String
 });
 
 module.exports = articleSchema;

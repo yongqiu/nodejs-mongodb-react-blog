@@ -147,14 +147,14 @@ router.post('/addArticle', function (req, res, next) {
     var title = req.body.title
     var modifier = req.body.modifiers
     var description = req.body.smde
-    var data = req.body.data
+    var date = req.body.date
     var tags = req.body.tags
     var article = new Article({
         title: title,
         modifier: modifier,
         description: description,
         tags: tags,
-        data: data
+        date: date
     })
     article.save();
     var responseData = {
@@ -164,6 +164,29 @@ router.post('/addArticle', function (req, res, next) {
     res.json(responseData)
 })
 
+//获取文章列表
+router.get('/getArticle', function (req, res) {
+    var array = new Array();
+    Article.find({},{"title":1,"_id":1,"date":1}).then(function (item) {
+        item.forEach(function (value, index) {
+            array.push(value)
+        })
+        var responseData = {
+            ArticleList: array,
+        }
+        res.json(responseData)
+    })
+})
+
+//获取文章detail
+router.get('/getArticleDetail', function (req, res, next) {
+    let id = req.query.id
+    Article.findOne({
+        _id: id
+    }).then(function (item) {
+        res.json(item)
+    })
+})
 
 
 
