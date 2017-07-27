@@ -1,6 +1,10 @@
 /*
 * 启动入口文件
 * */
+const NODE_ENV = process.env.NODE_ENV
+const __DEV__ = NODE_ENV === 'development'
+const _PRODUCT_ = NODE_ENV === 'production'
+
 //加载express
 var express = require('express')
 //加载html模板处理模块
@@ -67,12 +71,34 @@ app.use('/admin/api', require('./routers/api_admin')); // admin的api路由
 app.use('/', require('./routers/main'));    //前端展示页面路由
 app.use('/admin', require('./routers/admin'));    //后端展示页面路由
 
+if (__DEV__){
+    mongoose.connect( 'mongodb://localhost:27018/blog', function (err) {
+        if (err) {
+            console.log('数据库连接失败')
+        }else {
+            console.log('数据库连接成功');
+            app.listen(8888);
+        }
+    });
+}
+if (_PRODUCT_){
+    mongoose.connect( 'mongodb://127.0.0.1:27017/myblog', function (err) {
+        if (err) {
+            console.log('数据库连接失败')
+        }else {
+            console.log('数据库连接成功');
+            app.listen(8888);
+        }
+    });
+}
+
+
 //连接数据库
-mongoose.connect('mongodb://localhost:27018/blog', function (err) {
-    if (err) {
-        console.log('数据库连接失败')
-    }else {
-        console.log('数据库连接成功');
-        app.listen(8888);
-    }
-});
+// mongoose.connect( 'mongodb://localhost:27018/blog', function (err) {
+//     if (err) {
+//         console.log('数据库连接失败')
+//     }else {
+//         console.log('数据库连接成功');
+//         app.listen(8888);
+//     }
+// });

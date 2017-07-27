@@ -122,6 +122,11 @@ router.post('/addArticleTags', function (req, res, next) {
             }
         })
     })
+    var responseData = {
+        code: '0000',
+        message: '标签添加成功'
+    }
+    res.json(responseData)
 })
 
 /*
@@ -148,7 +153,7 @@ router.post('/addArticle', function (req, res, next) {
     var modifier = req.body.modifiers
     var description = req.body.smde
     var date = req.body.date
-    var tags = req.body.tags
+    let tags = req.body.tags
     var article = new Article({
         title: title,
         modifier: modifier,
@@ -164,21 +169,45 @@ router.post('/addArticle', function (req, res, next) {
     res.json(responseData)
 })
 
-//获取文章列表
-router.get('/getArticle', function (req, res) {
-    var array = new Array();
-    Article.find({},{"title":1,"_id":1,"date":1}).then(function (item) {
-        item.forEach(function (value, index) {
-            array.push(value)
+/*
+* 获取文章列表
+* */
+router.post('/getArticle', function (req, res) {
+    var currentPage = req.body.page
+    var limit = req.body.limit
+    var skip = (currentPage - 1)*limit
+    Article.find().then(function (articlelist) {
+        //获取user表里所有的数据，储存总条数
+        var totalCount = articlelist.length
+        //再获取筛选后的数据
+        Article.find().limit(limit).skip(skip).then(function (item) {
+            var array = new Array();
+            item.forEach(function (value, index) {
+                array.push(value)
+            })
+            var responseData = {
+                totalCount: totalCount,
+                ArticleList: array
+            }
+            //返回筛选后的数据和总条数
+            res.json(responseData)
         })
-        var responseData = {
-            ArticleList: array,
-        }
-        res.json(responseData)
     })
+    // var array = new Array();
+    // Article.find({},{"title":1,"_id":1,"date":1,"description":1,"tags":1}).then(function (item) {
+    //     item.forEach(function (value, index) {
+    //         array.push(value)
+    //     })
+    //     var responseData = {
+    //         ArticleList: array,
+    //     }
+    //     res.json(responseData)
+    // })
 })
 
-//获取文章detail
+/*
+* 获取文章detail
+* */
 router.get('/getArticleDetail', function (req, res, next) {
     let id = req.query.id
     Article.findOne({
@@ -188,6 +217,21 @@ router.get('/getArticleDetail', function (req, res, next) {
     })
 })
 
+/*
+* 删除文章
+* */
+router.get('/deleteArticle', function (req, res, next) {
+    let id = req.query.id
+    Article.remove({
+        _id: id
+    }).then(function () {
+        var responseData = {
+            code: 200,
+            message: '删除成功'
+        }
+        res.json(responseData)
+    })
+})
 
 
 module.exports = router;
