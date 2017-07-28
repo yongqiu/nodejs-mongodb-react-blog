@@ -191,7 +191,6 @@ $(function () {
                 let tagsList = tags.map(function(value) {
                     return '<a href="#">'+value+'</a>'
                 })
-                console.log(tagsList)
                 $content.append(
                     '<article id=104 class="post">' +
                     '<div class="post-head">' +
