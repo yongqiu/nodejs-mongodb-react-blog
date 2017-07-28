@@ -161,7 +161,7 @@ router.get('/user/getAllArticle', function (req, res, next) {
         Article.find().limit(limit).skip(skip).then(function (articleList) {
             var responseData = {
                 totalCount: totalCount,
-                data: articleList
+                data: articleList,
             }
             // console.log(responseData)
             // //返回筛选后的数据和总条数

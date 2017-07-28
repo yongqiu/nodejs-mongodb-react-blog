@@ -301,6 +301,8 @@ pre {
 }
 .post .post-content {
     margin: 30px 0;
+    max-height: 500px;
+    overflow: hidden;
 }
 .post .post-footer {
     margin-top: 30px;
@@ -310,6 +312,9 @@ pre {
 .post .post-footer .tag-list {
     color: #959595;
     line-height: 28px;
+}
+.post .post-footer .tag-list .tags{
+    display: inline-block;
 }
 .post .post-footer .tag-list a {
     color: #959595;
@@ -489,18 +494,17 @@ pre {
     margin: 1.64em 0;
     padding: 7px;
     border: none;
-    border-left: 3px solid #dadada;
     padding-left: 10px;
     overflow: auto;
     line-height: 1.5;
     font-size: 0.96em;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     color: #4c4c4c;
-    background-color: #f9f9f7;
+    background-color: #303030;
 }
 .post-content pre code,
 .post-content pre tt {
-    color: #4c4c4c;
+    color: #f5f5f5;
     border: none;
     background: none;
     padding: 0;
