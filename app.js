@@ -71,8 +71,9 @@ app.use('/admin/api', require('./routers/api_admin')); // admin的api路由
 app.use('/', require('./routers/main'));    //前端展示页面路由
 app.use('/admin', require('./routers/admin'));    //后端展示页面路由
 
+console.log(1232331)
 if (__DEV__){
-    mongoose.connect( 'mongodb://localhost:27018/blog', function (err) {
+    mongoose.connect( 'mongodb://39.108.13.1:27017/myblog', function (err) {
         if (err) {
             console.log('数据库连接失败')
         }else {
@@ -82,7 +83,7 @@ if (__DEV__){
     });
 }
 if (_PRODUCT_){
-    mongoose.connect( 'mongodb://127.0.0.1:27017/myblog', function (err) {
+    mongoose.connect( 'mongodb://39.108.13.1:27017/myblog', function (err) {
         if (err) {
             console.log('数据库连接失败')
         }else {
@@ -94,7 +95,7 @@ if (_PRODUCT_){
 
 
 //连接数据库
-// mongoose.connect( 'mongodb://localhost:27018/blog', function (err) {
+// mongoose.connect( 'mongodb://127.0.0.1:27017/myblog', function (err) {
 //     if (err) {
 //         console.log('数据库连接失败')
 //     }else {
