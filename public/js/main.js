@@ -213,7 +213,7 @@ $(function () {
                    ' <footer class="post-footer clearfix">'+
                         '<div class="pull-left tag-list">'+
                             '<i class="fa fa-folder-open-o"></i>'+
-                            '<div className="tags">'+ tagsList +'</div>'+
+                            '<div class="tags">'+ tagsList +'</div>'+
                         '</div>'+
                         '<div class="pull-right share">'+
                         '</div>'+
