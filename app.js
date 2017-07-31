@@ -94,10 +94,11 @@ if (_PRODUCT_){
 
 
 //连接数据库
-// mongoose.connect( 'mongodb://127.0.0.1:27017/myblog', function (err) {
+// mongoose.connect( 'mongodb://39.108.13.1:27017/myblog', function (err) {
 //     if (err) {
 //         console.log('数据库连接失败')
 //     }else {
 //         console.log('数据库连接成功');
-//         app.listen(8888);
+//         app.listen(7777);
 //     }
+// });

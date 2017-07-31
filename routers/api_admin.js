@@ -155,14 +155,45 @@ router.post('/addArticle', function (req, res, next) {
     var description = req.body.smde
     var date = req.body.date
     let tags = req.body.tags
-    var article = new Article({
-        title: title,
-        modifier: modifier,
-        description: description,
-        tags: tags,
-        date: date
-    })
-    article.save();
+    let _id = req.body.id
+    if(_id == ''){
+        var article = new Article({
+            title: title,
+            modifier: modifier,
+            description: description,
+            tags: tags,
+            date: date
+        })
+        article.save()
+    }else{
+        Article.findOne({
+            _id: _id
+        }).then(function (article) {
+            if (!article){
+                var article = new Article({
+                    title: title,
+                    modifier: modifier,
+                    description: description,
+                    tags: tags,
+                    date: date
+                })
+                article.save()
+            }else {
+                console.log(title)
+                return Article.update({
+                    _id: _id
+                },{
+                    title: title,
+                    modifier: modifier,
+                    description: description,
+                    tags: tags,
+                    date: date
+                })
+            }
+        })
+    }
+
+
     var responseData = {
         code: '0000',
         message: 'success'
