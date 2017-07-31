@@ -12,6 +12,9 @@ var $regInfo = $registerbox.find('.backInfo')
 var $loginInfo = $loginbox.find('.backInfo')
 var $tags = $('.post-footer .tags')
 
+/*
+* 全局方法--获取url后的参数
+* */
 function getParam() {
     var url = location.search.replace('&','&')
     var param = {}
@@ -25,6 +28,9 @@ function getParam() {
     return param
 }
 
+/*
+* 验证cookies
+* */
 function checkCookies() {
     $.ajax({
         type: 'POST',
@@ -53,6 +59,10 @@ function checkCookies() {
     });
 }
 checkCookies();
+
+/*
+* 登陆，注册，用户信息显示
+* */
 $(function () {
     //切换到注册
     $loginbox.find('.replaceToSign').on('click', function () {
@@ -133,6 +143,9 @@ $(function () {
 
 });
 
+/*
+* 获取文章信息
+* */
 $(function () {
     var param = getParam();
     var id = param.id

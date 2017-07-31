@@ -7,6 +7,7 @@ var router = express.Router();
 var User = require('../models/User')
 var Tags = require('../models/Tags')
 var Article = require('../models/Article')
+var User = require('../models/User')
 
 //用户分类列表
 router.post('/getUserList', function (req, res, next) {
@@ -193,16 +194,6 @@ router.post('/getArticle', function (req, res) {
             res.json(responseData)
         })
     })
-    // var array = new Array();
-    // Article.find({},{"title":1,"_id":1,"date":1,"description":1,"tags":1}).then(function (item) {
-    //     item.forEach(function (value, index) {
-    //         array.push(value)
-    //     })
-    //     var responseData = {
-    //         ArticleList: array,
-    //     }
-    //     res.json(responseData)
-    // })
 })
 
 /*
@@ -230,6 +221,42 @@ router.get('/deleteArticle', function (req, res, next) {
             message: '删除成功'
         }
         res.json(responseData)
+    })
+})
+
+/*
+* 管理员登陆
+* */
+router.post('/login', function (req, res, next) {
+    let username = req.body.username
+    let password = req.body.password
+    User.findOne({
+        username: username,
+        password: password
+    }).then(function (userInfo) {
+        var responseData = {}
+        if(!userInfo){
+            responseData = {
+                code : 1,
+                message : "用户名或密码错误"
+            }
+            res.json(responseData)
+            return;
+        }else{
+            if (!userInfo.isAdmin){
+                responseData = {
+                    code : 2,
+                    message : "该用户不是管理员"
+                }
+                res.json(responseData)
+                return;
+            }
+            responseData = {
+                code : 0,
+                message : "登陆成功"
+            }
+            res.json(responseData)
+        }
     })
 })
 
