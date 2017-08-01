@@ -93,12 +93,12 @@ if (_PRODUCT_){
 }
 
 
-//连接数据库
+//连接数据库 run app.js
 // mongoose.connect( 'mongodb://39.108.13.1:27017/myblog', function (err) {
 //     if (err) {
 //         console.log('数据库连接失败')
 //     }else {
-//         console.log('数据库连接成功');
-//         app.listen(7777);
+//         console.log('数据库连接成功')
+//         app.listen(7777)
 //     }
 // });

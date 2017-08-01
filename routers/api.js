@@ -154,11 +154,10 @@ router.get('/user/getAllArticle', function (req, res, next) {
     var limit = 5;
     var skip = (currentPage - 1)*limit;
     Article.find().then(function (aLLAriticle) {
-
         // //获取user表里所有的数据，储存总条数
         var totalCount = aLLAriticle.length
         // //再获取筛选后的数据
-        Article.find().limit(limit).skip(skip).then(function (articleList) {
+        Article.find().sort({_id:-1}).limit(limit).skip(skip).then(function (articleList) {
             var responseData = {
                 totalCount: totalCount,
                 data: articleList,

@@ -209,8 +209,8 @@ $(function () {
                     '<div class="post-head">' +
                     '<h1 class="post-title">'+ articleList[i].title +'</h1>' +
                     '<div class="post-meta">' +
-                    '<span class="author">作者：<a href="#">yongqiu</a></span> &bull;' +
-                    '<time class="post-date" datetime="2017年6月24日星期六上午9点33分" title="2017年6月24日星期六上午9点33分">2017年6月24日</time>' +
+                    '<span class="author">作者：<a href="#">yongqiu</a></span> &nbsp;' +
+                    '<time class="post-date">'+articleList[i].date+'</time>' +
                     '</div>' +
                     '</div>' +
                     '<div class="featured-media">' +
