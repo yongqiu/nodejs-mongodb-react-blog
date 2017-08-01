@@ -1,6 +1,42 @@
+a{
+    text-decoration:none
+}
+a:hover{
+    text-decoration:none
+}
 .hide{
     display: none;
 }
 .backInfo{
     color: #DC0D2B;
+}
+.myInfo .intro{
+    text-align: center;
+}
+.myInfo img{
+    width: 100px;
+    height: 100px;
+}
+.myInfo .acr-label{
+    height: 42px;
+    margin-top: 20px;
+}
+.myInfo .acr-label span{
+    width: 50%;
+    display: block;
+    float: left;
+    height: 100%;
+}
+.myInfo .acr-label span:first-child{
+    border-right: 1px solid #ccc;
+}
+.myInfo .links{
+    font-size: 25px;
+    margin-top: 20px;
+}
+.myInfo .links .fa{
+    margin: 0 27px;
+}
+.myInfo .links .fa:hover{
+    color: #2a6496;
 }

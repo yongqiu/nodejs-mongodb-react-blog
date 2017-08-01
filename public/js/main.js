@@ -11,7 +11,8 @@ var $notAdmin = $('.notadmin')
 var $regInfo = $registerbox.find('.backInfo')
 var $loginInfo = $loginbox.find('.backInfo')
 var $tags = $('.post-footer .tags')
-
+var $myInfoArticle = $('.myInfo .article')
+var $myInfoTags = $('.myInfo .tags')
 /*
 * 全局方法--获取url后的参数
 * */
@@ -169,6 +170,9 @@ $(function () {
             var nextpage = page + 1
 
             var lastpage = totalCount
+            $myInfoArticle.append(
+                '文章<br>'+result.totalCount
+            )
             if(page == 1){
                 $pagination.append(
                     '<span class="page-number">第 1 页 &frasl; 共 '+ totalCount +' 页</span>'+
@@ -244,6 +248,9 @@ $(function () {
         success: function (result) {
             var tagArray = result.tagArray
             var $tagcontent = $('.tag-cloud')
+            $myInfoTags.append(
+                '标签<br>'+tagArray.length
+            )
             for (var i=0; i<tagArray.length; i++){
                 $tagcontent.append(
                     '<a href="javascript:;">'+ tagArray[i] +'</a>'

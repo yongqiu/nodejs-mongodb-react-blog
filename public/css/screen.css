@@ -68,8 +68,8 @@ a img {
     transition: all 0.2s ease-in-out;
 }
 .btn-default:hover {
-    border: 1px solid #303030;
-    background: #303030;
+    border: 1px solid #2a6496;
+    background: #2a6496;
     color: #ffffff;
 }
 .btn-default:focus {
