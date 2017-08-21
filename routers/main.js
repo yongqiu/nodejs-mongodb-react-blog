@@ -11,6 +11,10 @@ router.get('/', function (req, res, next) {
 router.get('/page', function (req, res, next) {
     res.render('./main/index')
 });
+//标签搜索结果页
+router.get('/pageByTags', function (req, res, next) {
+    res.render('./main/ArticleByTag.html')
+});
 //详情页
 //其他页
 router.get('/details', function (req, res, next) {

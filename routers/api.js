@@ -185,4 +185,31 @@ router.get('/user/getAllTags', function (req, res) {
     })
 })
 
+/*
+ * 标签筛选获取文章
+ * */
+router.get('/user/getArticleByTag', function (req, res, next) {
+    var tag = req.query.tag
+    var currentPage = req.query.page;
+    var limit = 5;
+    var skip = (currentPage - 1)*limit;
+    Article.find({
+        tags: tag
+    }).then(function (aLLAriticle) {
+        // //获取user表里所有的数据，储存总条数
+        var totalCount = aLLAriticle.length
+        // //再获取筛选后的数据
+        Article.find({
+            tags: tag
+        }).limit(limit).skip(skip).then(function (articleList) {
+            var responseData = {
+                totalCount:totalCount,
+                atcList: articleList,
+            }
+            res.json(responseData)
+        })
+    })
+
+})
+
 module.exports = router

@@ -165,7 +165,7 @@ $(function () {
             var articleList = result.data
             var totalCount = Math.ceil(result.totalCount/limit)
             var $content = $('.main-content .articleList')
-            var $pagination = $('.main-content .pagination')
+            var $pagination = $('.main-content .allpag')
             var prepage = page - 1
             var nextpage = page + 1
 
@@ -253,7 +253,7 @@ $(function () {
             )
             for (var i=0; i<tagArray.length; i++){
                 $tagcontent.append(
-                    '<a href="javascript:;">'+ tagArray[i] +'</a>'
+                    '<a href="/pageByTags?tag='+tagArray[i]+'&page=1">'+ tagArray[i] +'</a>'
                 )
             }
         }
